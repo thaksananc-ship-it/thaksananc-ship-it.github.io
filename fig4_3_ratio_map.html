@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_bc1e61669c454a8d6f8138db175b9377 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+<div style="position:fixed; bottom:30px; right:20px; z-index:1000; background:white; 
+     padding:14px 18px; border-radius:10px; border:2px solid #333; font-family:sans-serif; 
+     font-size:12px; box-shadow:2px 2px 8px rgba(0,0,0,0.3);">
+<p style="margin:0 0 8px; font-weight:bold; font-size:13px; border-bottom:2px solid #3498db; padding-bottom:5px;">
+ภาพที่ 4.3 อัตราส่วนร้านยา:10,000 คน</p>
+<p style="margin:3px 0;"><span style="display:inline-block;width:16px;height:16px;background:#1a9850;border-radius:50%;vertical-align:middle;"></span> ≥2.0 (สูงมาก)</p>
+<p style="margin:3px 0;"><span style="display:inline-block;width:16px;height:16px;background:#2ecc71;border-radius:50%;vertical-align:middle;"></span> 1.5-2.0 (สูง)</p>
+<p style="margin:3px 0;"><span style="display:inline-block;width:16px;height:16px;background:#f1c40f;border-radius:50%;vertical-align:middle;"></span> 1.0-1.5 (ปานกลาง)</p>
+<p style="margin:3px 0;"><span style="display:inline-block;width:16px;height:16px;background:#f39c12;border-radius:50%;vertical-align:middle;"></span> 0.5-1.0 (ต่ำ)</p>
+<p style="margin:3px 0;"><span style="display:inline-block;width:16px;height:16px;background:#e74c3c;border-radius:50%;vertical-align:middle;"></span> <0.5 (ต่ำมาก)</p>
+<p style="margin:3px 0;"><span style="display:inline-block;width:16px;height:16px;background:#bdc3c7;border-radius:50%;vertical-align:middle;"></span> 0 (ไม่มีร้านยา)</p>
+<hr style="margin:6px 0;">
+<p style="margin:0; font-size:10px; color:#999;">ขนาดวงกลม ∝ อัตราส่วน | คลิกเพื่อดูรายละเอียด</p>
+</div>
+    
+<div style="position:fixed; top:10px; left:60px; z-index:1000; background:white; 
+     padding:10px 18px; border-radius:10px; border:2px solid #333; font-family:sans-serif;
+     box-shadow:2px 2px 8px rgba(0,0,0,0.3);">
+<b style="font-size:14px;">ภาพที่ 4.3 แผนที่แสดงอัตราส่วนร้านยาต่อประชากร 10,000 คน รายอำเภอ</b><br>
+<span style="font-size:11px; color:#666;">จ.ขอนแก่น | 26 อำเภอ | ร้านยา ขย.1 จำนวน 411 แห่ง | ประชากร 1,767,151 คน</span>
+</div>
+    
+            <div class="folium-map" id="map_bc1e61669c454a8d6f8138db175b9377" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_bc1e61669c454a8d6f8138db175b9377 = L.map(
+                "map_bc1e61669c454a8d6f8138db175b9377",
+                {
+                    center: [16.353161676275242, 102.58506664449008],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 9,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_e375eefcbaea218e098ee391cace62af = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_e375eefcbaea218e098ee391cace62af.addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var circle_marker_dec798f70e455f1d45cd0b57dbb05727 = L.circleMarker(
+                [16.449302511444326, 102.82246362128089],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1a9850", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 35, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_da3e5d72d8bf4190dff1e6fee20fff8f = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_4fcc748c408b0b3fef0c8b5a33d3ddad = $(`<div id="html_4fcc748c408b0b3fef0c8b5a33d3ddad" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.เมืองขอนแก่น</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">417,427 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">268 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#1a9850;">6.42</td></tr>         </table>     </div></div>`)[0];
+                popup_da3e5d72d8bf4190dff1e6fee20fff8f.setContent(html_4fcc748c408b0b3fef0c8b5a33d3ddad);
+            
+        
+
+        circle_marker_dec798f70e455f1d45cd0b57dbb05727.bindPopup(popup_da3e5d72d8bf4190dff1e6fee20fff8f)
+        ;
+
+        
+    
+    
+            var marker_2f8dc1ad4e404a203d3c63f8ef4dcdd2 = L.marker(
+                [16.449302511444326, 102.82246362128089],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_c9d438a35028b1e5e756b2ed3f99a1fa = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e40\u0e21\u0e37\u0e2d\u0e07\u0e02\u0e2d\u0e19\u0e41\u0e01\u0e48\u0e19\u003cbr\u003e\u003cspan style=\"color:#1a9850;\"\u003e6.4\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_2f8dc1ad4e404a203d3c63f8ef4dcdd2.setIcon(div_icon_c9d438a35028b1e5e756b2ed3f99a1fa);
+            
+    
+            var circle_marker_f9afea236ac20c3c374336dd9ce37798 = L.circleMarker(
+                [16.714497313346868, 103.08376208285267],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.536796312600341, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_89e46024ded6e018e5d5073b62d297b3 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_b30f587bb30263d40edfe4f3dfcdb3ab = $(`<div id="html_b30f587bb30263d40edfe4f3dfcdb3ab" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.กระนวน</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">77,236 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">15 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#2ecc71;">1.94</td></tr>         </table>     </div></div>`)[0];
+                popup_89e46024ded6e018e5d5073b62d297b3.setContent(html_b30f587bb30263d40edfe4f3dfcdb3ab);
+            
+        
+
+        circle_marker_f9afea236ac20c3c374336dd9ce37798.bindPopup(popup_89e46024ded6e018e5d5073b62d297b3)
+        ;
+
+        
+    
+    
+            var marker_805dd9574b45e9d73e12362037e9bd28 = L.marker(
+                [16.714497313346868, 103.08376208285267],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_e17933c9500a28179b9f484f94dc98f0 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e01\u0e23\u0e30\u0e19\u0e27\u0e19\u003cbr\u003e\u003cspan style=\"color:#2ecc71;\"\u003e1.9\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_805dd9574b45e9d73e12362037e9bd28.setIcon(div_icon_e17933c9500a28179b9f484f94dc98f0);
+            
+    
+            var circle_marker_b7cb16e7b77dafbce39c8fed6aeffae1 = L.circleMarker(
+                [16.548330329826463, 102.09371272733435],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.16462685952116, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_898f9e37a9a0890067354af073930905 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_1e0535bd7bf65109a6751a43aa538311 = $(`<div id="html_1e0535bd7bf65109a6751a43aa538311" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.ชุมแพ</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">121,335 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">23 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#2ecc71;">1.90</td></tr>         </table>     </div></div>`)[0];
+                popup_898f9e37a9a0890067354af073930905.setContent(html_1e0535bd7bf65109a6751a43aa538311);
+            
+        
+
+        circle_marker_b7cb16e7b77dafbce39c8fed6aeffae1.bindPopup(popup_898f9e37a9a0890067354af073930905)
+        ;
+
+        
+    
+    
+            var marker_26b45d29802b5f6663c14ffc6fc26c41 = L.marker(
+                [16.548330329826463, 102.09371272733435],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_df9356744bffc4f032fe5e12f53a1376 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e0a\u0e38\u0e21\u0e41\u0e1e\u003cbr\u003e\u003cspan style=\"color:#2ecc71;\"\u003e1.9\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_26b45d29802b5f6663c14ffc6fc26c41.setIcon(div_icon_df9356744bffc4f032fe5e12f53a1376);
+            
+    
+            var circle_marker_0ea2abfa02bd9580c0719d2d918248bc = L.circleMarker(
+                [16.076803870613194, 102.73204735542701],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.329062683009523, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_cb047669629d96eff7e68de4ea1f6fe1 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_3534f60dd24c9f34380ccf0464a7966a = $(`<div id="html_3534f60dd24c9f34380ccf0464a7966a" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.บ้านไผ่</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">97,331 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">15 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#2ecc71;">1.54</td></tr>         </table>     </div></div>`)[0];
+                popup_cb047669629d96eff7e68de4ea1f6fe1.setContent(html_3534f60dd24c9f34380ccf0464a7966a);
+            
+        
+
+        circle_marker_0ea2abfa02bd9580c0719d2d918248bc.bindPopup(popup_cb047669629d96eff7e68de4ea1f6fe1)
+        ;
+
+        
+    
+    
+            var marker_ad2a8d56e604f1b1c95e47b50be91334 = L.marker(
+                [16.076803870613194, 102.73204735542701],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_679b2d9ea6e77d332eea7dd027e4377b = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e1a\u0e49\u0e32\u0e19\u0e44\u0e1c\u0e48\u003cbr\u003e\u003cspan style=\"color:#2ecc71;\"\u003e1.5\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_ad2a8d56e604f1b1c95e47b50be91334.setIcon(div_icon_679b2d9ea6e77d332eea7dd027e4377b);
+            
+    
+            var circle_marker_6ecd282fb6ecb201e75294350f869736 = L.circleMarker(
+                [16.346249298991836, 102.68335304684993],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f1c40f", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.719894520949312, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_ae871f292a98beb173826b85ee0fef45 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_ca1a57874615b03b30ee8cb7432f0f83 = $(`<div id="html_ca1a57874615b03b30ee8cb7432f0f83" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.พระยืน</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">34,130 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">5 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f1c40f;">1.46</td></tr>         </table>     </div></div>`)[0];
+                popup_ae871f292a98beb173826b85ee0fef45.setContent(html_ca1a57874615b03b30ee8cb7432f0f83);
+            
+        
+
+        circle_marker_6ecd282fb6ecb201e75294350f869736.bindPopup(popup_ae871f292a98beb173826b85ee0fef45)
+        ;
+
+        
+    
+    
+            var marker_9b57c1a64dac31df1d493be9bbf0e680 = L.marker(
+                [16.346249298991836, 102.68335304684993],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_c67d17b2360dfc4239d277e61a839137 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e1e\u0e23\u0e30\u0e22\u0e37\u0e19\u003cbr\u003e\u003cspan style=\"color:#f1c40f;\"\u003e1.5\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_9b57c1a64dac31df1d493be9bbf0e680.setIcon(div_icon_c67d17b2360dfc4239d277e61a839137);
+            
+    
+            var circle_marker_b248a2927afcad03a1b32bc760e8bb50 = L.circleMarker(
+                [16.491580661285454, 102.48327901873176],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f1c40f", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.441018250624305, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_2da8197d62b519c9b7498cf08c2afc9c = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_5cd023d74193fe030da02bac4d8e1188 = $(`<div id="html_5cd023d74193fe030da02bac4d8e1188" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.หนองเรือ</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">90,901 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">13 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f1c40f;">1.43</td></tr>         </table>     </div></div>`)[0];
+                popup_2da8197d62b519c9b7498cf08c2afc9c.setContent(html_5cd023d74193fe030da02bac4d8e1188);
+            
+        
+
+        circle_marker_b248a2927afcad03a1b32bc760e8bb50.bindPopup(popup_2da8197d62b519c9b7498cf08c2afc9c)
+        ;
+
+        
+    
+    
+            var marker_04e65b5e0c94219261510114ebcdf587 = L.marker(
+                [16.491580661285454, 102.48327901873176],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_fcd2337e6bb0dd3ff77b587978f164f0 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e2b\u0e19\u0e2d\u0e07\u0e40\u0e23\u0e37\u0e2d\u003cbr\u003e\u003cspan style=\"color:#f1c40f;\"\u003e1.4\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_04e65b5e0c94219261510114ebcdf587.setIcon(div_icon_fcd2337e6bb0dd3ff77b587978f164f0);
+            
+    
+            var circle_marker_22183d67255939a0a5d7bcc31768cd3a = L.circleMarker(
+                [15.837006576256217, 102.60380272832528],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f1c40f", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.370231313143277, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_dca5fee5739599738d06eaa579f3bac0 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_f575fbcab743863a5409caac5a67b076 = $(`<div id="html_f575fbcab743863a5409caac5a67b076" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.พล</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">84,431 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">12 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f1c40f;">1.42</td></tr>         </table>     </div></div>`)[0];
+                popup_dca5fee5739599738d06eaa579f3bac0.setContent(html_f575fbcab743863a5409caac5a67b076);
+            
+        
+
+        circle_marker_22183d67255939a0a5d7bcc31768cd3a.bindPopup(popup_dca5fee5739599738d06eaa579f3bac0)
+        ;
+
+        
+    
+    
+            var marker_339df575cdb3b440c3a14277c7267761 = L.marker(
+                [15.837006576256217, 102.60380272832528],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_8596d30d0104f943d45741348276d4e8 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e1e\u0e25\u003cbr\u003e\u003cspan style=\"color:#f1c40f;\"\u003e1.4\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_339df575cdb3b440c3a14277c7267761.setIcon(div_icon_8596d30d0104f943d45741348276d4e8);
+            
+    
+            var circle_marker_93c0b5cf1c6dead418fed71d4e2def15 = L.circleMarker(
+                [16.10065531365262, 102.40892481864869],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f1c40f", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.682885499878964, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_dbad09ce77ea9a864343267533054d17 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_ed715b210775f5c884052ff291476379 = $(`<div id="html_ed715b210775f5c884052ff291476379" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.โคกโพธิ์ไชย</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">24,786 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">3 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f1c40f;">1.21</td></tr>         </table>     </div></div>`)[0];
+                popup_dbad09ce77ea9a864343267533054d17.setContent(html_ed715b210775f5c884052ff291476379);
+            
+        
+
+        circle_marker_93c0b5cf1c6dead418fed71d4e2def15.bindPopup(popup_dbad09ce77ea9a864343267533054d17)
+        ;
+
+        
+    
+    
+            var marker_2a71ec1fcc578e102f37d3c84fcb14e4 = L.marker(
+                [16.10065531365262, 102.40892481864869],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_4093879ee984c3d5c8779309c278e2b0 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e42\u0e04\u0e01\u0e42\u0e1e\u0e18\u0e34\u0e4c\u0e44\u0e0a\u0e22\u003cbr\u003e\u003cspan style=\"color:#f1c40f;\"\u003e1.2\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_2a71ec1fcc578e102f37d3c84fcb14e4.setIcon(div_icon_4093879ee984c3d5c8779309c278e2b0);
+            
+    
+            var circle_marker_f1b3607f9e2db71abc5957ece054a577 = L.circleMarker(
+                [15.876944876444444, 102.91033976899246],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f1c40f", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.027292795504716, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_f35ac583584d7962d8315fcaabacf230 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_4762f83197bca1ea66cdcb1fc9eb3843 = $(`<div id="html_4762f83197bca1ea66cdcb1fc9eb3843" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.เปือยน้อย</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">19,932 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">2 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f1c40f;">1.00</td></tr>         </table>     </div></div>`)[0];
+                popup_f35ac583584d7962d8315fcaabacf230.setContent(html_4762f83197bca1ea66cdcb1fc9eb3843);
+            
+        
+
+        circle_marker_f1b3607f9e2db71abc5957ece054a577.bindPopup(popup_f35ac583584d7962d8315fcaabacf230)
+        ;
+
+        
+    
+    
+            var marker_a3686bed229b9bec13893ba141acf9ec = L.marker(
+                [15.876944876444444, 102.91033976899246],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_2b1ce01c3e647b60ca1b7596679c2dc3 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e40\u0e1b\u0e37\u0e2d\u0e22\u0e19\u0e49\u0e2d\u0e22\u003cbr\u003e\u003cspan style=\"color:#f1c40f;\"\u003e1.0\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_a3686bed229b9bec13893ba141acf9ec.setIcon(div_icon_2b1ce01c3e647b60ca1b7596679c2dc3);
+            
+    
+            var circle_marker_421a3f1d02182264358c86625f570747 = L.circleMarker(
+                [16.74546519352394, 102.64832691012874],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.364109172918488, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_3dc36029d2861acabc51f80efe7d18fc = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_a4f09e8d743b4822e322efc54b8a9617 = $(`<div id="html_a4f09e8d743b4822e322efc54b8a9617" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.อุบลรัตน์</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">43,454 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">4 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f39c12;">0.92</td></tr>         </table>     </div></div>`)[0];
+                popup_3dc36029d2861acabc51f80efe7d18fc.setContent(html_a4f09e8d743b4822e322efc54b8a9617);
+            
+        
+
+        circle_marker_421a3f1d02182264358c86625f570747.bindPopup(popup_3dc36029d2861acabc51f80efe7d18fc)
+        ;
+
+        
+    
+    
+            var marker_0e98768f0d1b49af43a993469251d863 = L.marker(
+                [16.74546519352394, 102.64832691012874],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_e08b575e2250534e596df1e7aefc98d9 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e2d\u0e38\u0e1a\u0e25\u0e23\u0e31\u0e15\u0e19\u0e4c\u003cbr\u003e\u003cspan style=\"color:#f39c12;\"\u003e0.9\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_0e98768f0d1b49af43a993469251d863.setIcon(div_icon_e08b575e2250534e596df1e7aefc98d9);
+            
+    
+            var circle_marker_fcfc10a071689be868fb5397e56dc59d = L.circleMarker(
+                [16.63969687084118, 102.83555792301907],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.243686674332902, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_33f745e2604bc8cac61e3bc4e4f04c93 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_dee1bac1c8ecac83774205dd8d39a0cf = $(`<div id="html_dee1bac1c8ecac83774205dd8d39a0cf" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.น้ำพอง</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">110,441 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">10 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f39c12;">0.91</td></tr>         </table>     </div></div>`)[0];
+                popup_33f745e2604bc8cac61e3bc4e4f04c93.setContent(html_dee1bac1c8ecac83774205dd8d39a0cf);
+            
+        
+
+        circle_marker_fcfc10a071689be868fb5397e56dc59d.bindPopup(popup_33f745e2604bc8cac61e3bc4e4f04c93)
+        ;
+
+        
+    
+    
+            var marker_401b228a020d417b350fc6c53ecc8052 = L.marker(
+                [16.63969687084118, 102.83555792301907],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_50686463107c68bc24e2ed36722196f6 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e19\u0e49\u0e33\u0e1e\u0e2d\u0e07\u003cbr\u003e\u003cspan style=\"color:#f39c12;\"\u003e0.9\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_401b228a020d417b350fc6c53ecc8052.setIcon(div_icon_50686463107c68bc24e2ed36722196f6);
+            
+    
+            var circle_marker_40787dad3de7b1c0e135ac79f4ff005a = L.circleMarker(
+                [16.53119829332838, 103.06580681000449],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.946554942908002, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_4bf6660d1bc1a11bd81feea984fac5ce = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_6cf9e07d920eb36d29f267a5f8356768 = $(`<div id="html_6cf9e07d920eb36d29f267a5f8356768" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.ซำสูง</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">23,033 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">2 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f39c12;">0.87</td></tr>         </table>     </div></div>`)[0];
+                popup_4bf6660d1bc1a11bd81feea984fac5ce.setContent(html_6cf9e07d920eb36d29f267a5f8356768);
+            
+        
+
+        circle_marker_40787dad3de7b1c0e135ac79f4ff005a.bindPopup(popup_4bf6660d1bc1a11bd81feea984fac5ce)
+        ;
+
+        
+    
+    
+            var marker_c4fce1125068c292a9f993c9aa8e1ccd = L.marker(
+                [16.53119829332838, 103.06580681000449],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_5b61f0a8e4add035ed61247d6a68a9b7 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e0b\u0e33\u0e2a\u0e39\u0e07\u003cbr\u003e\u003cspan style=\"color:#f39c12;\"\u003e0.9\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_c4fce1125068c292a9f993c9aa8e1ccd.setIcon(div_icon_5b61f0a8e4add035ed61247d6a68a9b7);
+            
+    
+            var circle_marker_0b49ed367f8540e0e797e7e6214b8d71 = L.circleMarker(
+                [16.090009433028364, 102.62177291591048],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.916974688195751, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_c36bae0232c5223dfeabd0991038327a = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_4811992f48f1428d8b7e2dcd1fd20408 = $(`<div id="html_4811992f48f1428d8b7e2dcd1fd20408" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.ชนบท</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">46,263 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">4 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f39c12;">0.86</td></tr>         </table>     </div></div>`)[0];
+                popup_c36bae0232c5223dfeabd0991038327a.setContent(html_4811992f48f1428d8b7e2dcd1fd20408);
+            
+        
+
+        circle_marker_0b49ed367f8540e0e797e7e6214b8d71.bindPopup(popup_c36bae0232c5223dfeabd0991038327a)
+        ;
+
+        
+    
+    
+            var marker_9feaee35fc592c6ac88264d142f860a5 = L.marker(
+                [16.090009433028364, 102.62177291591048],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_6b39d10dd90c85c252458df2129610b5 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e0a\u0e19\u0e1a\u0e17\u003cbr\u003e\u003cspan style=\"color:#f39c12;\"\u003e0.9\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_9feaee35fc592c6ac88264d142f860a5.setIcon(div_icon_6b39d10dd90c85c252458df2129610b5);
+            
+    
+            var circle_marker_5aedcb7626e74f84f5a7a785e5cfd019 = L.circleMarker(
+                [16.805578495877608, 102.33695403209454],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.854303217238573, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_1909da2abeefa1f0a126238b20e13c68 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_74c955345f5f92878fe7535cb0646f43 = $(`<div id="html_74c955345f5f92878fe7535cb0646f43" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.หนองนาคำ</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">23,343 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">2 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f39c12;">0.86</td></tr>         </table>     </div></div>`)[0];
+                popup_1909da2abeefa1f0a126238b20e13c68.setContent(html_74c955345f5f92878fe7535cb0646f43);
+            
+        
+
+        circle_marker_5aedcb7626e74f84f5a7a785e5cfd019.bindPopup(popup_1909da2abeefa1f0a126238b20e13c68)
+        ;
+
+        
+    
+    
+            var marker_c59c040b08615f50ce9aa67752136292 = L.marker(
+                [16.805578495877608, 102.33695403209454],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_411bcefe6473ae888ab2ed234f285493 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e2b\u0e19\u0e2d\u0e07\u0e19\u0e32\u0e04\u0e33\u003cbr\u003e\u003cspan style=\"color:#f39c12;\"\u003e0.9\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_c59c040b08615f50ce9aa67752136292.setIcon(div_icon_411bcefe6473ae888ab2ed234f285493);
+            
+    
+            var circle_marker_16fb7e1795d753d99def4f6bd1351121 = L.circleMarker(
+                [16.847943688735334, 102.89308388005747],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.407518154634772, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_a0edc1a10d2767dafefed018832390c7 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_8ba8f6f1ecca3de854af9d81b1e243b1 = $(`<div id="html_8ba8f6f1ecca3de854af9d81b1e243b1" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.เขาสวนกวาง</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">37,456 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">3 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f39c12;">0.80</td></tr>         </table>     </div></div>`)[0];
+                popup_a0edc1a10d2767dafefed018832390c7.setContent(html_8ba8f6f1ecca3de854af9d81b1e243b1);
+            
+        
+
+        circle_marker_16fb7e1795d753d99def4f6bd1351121.bindPopup(popup_a0edc1a10d2767dafefed018832390c7)
+        ;
+
+        
+    
+    
+            var marker_1bf6b48aee42bf9829d0c581f884709b = L.marker(
+                [16.847943688735334, 102.89308388005747],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_e466aa6f78de6c7054af3298fd5e5763 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e40\u0e02\u0e32\u0e2a\u0e27\u0e19\u0e01\u0e27\u0e32\u0e07\u003cbr\u003e\u003cspan style=\"color:#f39c12;\"\u003e0.8\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_1bf6b48aee42bf9829d0c581f884709b.setIcon(div_icon_e466aa6f78de6c7054af3298fd5e5763);
+            
+    
+            var circle_marker_4d91c655ff2d70d9579b9427d1a4f710 = L.circleMarker(
+                [15.816705197507119, 102.77525265472138],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.344255144794407, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_4f0ed45f6d150198044338e12c94b569 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_6f8d10512826558634690ae01f791122 = $(`<div id="html_6f8d10512826558634690ae01f791122" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.หนองสองห้อง</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">75,659 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">6 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f39c12;">0.79</td></tr>         </table>     </div></div>`)[0];
+                popup_4f0ed45f6d150198044338e12c94b569.setContent(html_6f8d10512826558634690ae01f791122);
+            
+        
+
+        circle_marker_4d91c655ff2d70d9579b9427d1a4f710.bindPopup(popup_4f0ed45f6d150198044338e12c94b569)
+        ;
+
+        
+    
+    
+            var marker_6930361c96f78b86d9a2a711ec66ccbc = L.marker(
+                [15.816705197507119, 102.77525265472138],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_8ca1bf9866b884e2904ad84c710c7139 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e2b\u0e19\u0e2d\u0e07\u0e2a\u0e2d\u0e07\u0e2b\u0e49\u0e2d\u0e07\u003cbr\u003e\u003cspan style=\"color:#f39c12;\"\u003e0.8\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_6930361c96f78b86d9a2a711ec66ccbc.setIcon(div_icon_8ca1bf9866b884e2904ad84c710c7139);
+            
+    
+            var circle_marker_7091a0de55ea9c712075821940fa5002 = L.circleMarker(
+                [15.966081750661576, 102.69110311964177],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.0818002128630075, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_6fda9ddce95c46f7ec4068b405fb64fe = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_4b7c2660fc076340b5725f1f0b76e8aa = $(`<div id="html_4b7c2660fc076340b5725f1f0b76e8aa" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.โนนศิลา</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">26,308 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">2 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f39c12;">0.76</td></tr>         </table>     </div></div>`)[0];
+                popup_6fda9ddce95c46f7ec4068b405fb64fe.setContent(html_4b7c2660fc076340b5725f1f0b76e8aa);
+            
+        
+
+        circle_marker_7091a0de55ea9c712075821940fa5002.bindPopup(popup_6fda9ddce95c46f7ec4068b405fb64fe)
+        ;
+
+        
+    
+    
+            var marker_7c35bd9279d6f00fff06c26a9dc6eb70 = L.marker(
+                [15.966081750661576, 102.69110311964177],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_bcf8ef923fc2a1a28d67070b00124e6c = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e42\u0e19\u0e19\u0e28\u0e34\u0e25\u0e32\u003cbr\u003e\u003cspan style=\"color:#f39c12;\"\u003e0.8\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_7c35bd9279d6f00fff06c26a9dc6eb70.setIcon(div_icon_bcf8ef923fc2a1a28d67070b00124e6c);
+            
+    
+            var circle_marker_8c143944816120b19afc5b1bb22c87e2 = L.circleMarker(
+                [16.140728816289993, 102.5354435164962],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.832604257801108, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_e61dea1ad89b6bc96df5c3f5dd3e3531 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_ededbb86cd7ece248adf6fc7e3e4ec5e = $(`<div id="html_ededbb86cd7ece248adf6fc7e3e4ec5e" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.มัญจาคีรี</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">68,580 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">5 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f39c12;">0.73</td></tr>         </table>     </div></div>`)[0];
+                popup_e61dea1ad89b6bc96df5c3f5dd3e3531.setContent(html_ededbb86cd7ece248adf6fc7e3e4ec5e);
+            
+        
+
+        circle_marker_8c143944816120b19afc5b1bb22c87e2.bindPopup(popup_e61dea1ad89b6bc96df5c3f5dd3e3531)
+        ;
+
+        
+    
+    
+            var marker_e2ccbda3f3f471ebd53fd1ffa9e3f43b = L.marker(
+                [16.140728816289993, 102.5354435164962],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_4a30706cd90a009601102f3d9f071123 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e21\u0e31\u0e0d\u0e08\u0e32\u0e04\u0e35\u0e23\u0e35\u003cbr\u003e\u003cspan style=\"color:#f39c12;\"\u003e0.7\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_e2ccbda3f3f471ebd53fd1ffa9e3f43b.setIcon(div_icon_4a30706cd90a009601102f3d9f071123);
+            
+    
+            var circle_marker_1e4ce1ee898cc7cbd0333f7018b64cb9 = L.circleMarker(
+                [15.957143658998444, 102.53965626695098],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.578606045814302, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_d3d2429c474815f9fdb21fc61fb010e7 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_1ed49ebb84d1fef81f09d286fac6a9d0 = $(`<div id="html_1ed49ebb84d1fef81f09d286fac6a9d0" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.แวงใหญ่</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">28,681 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">2 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f39c12;">0.70</td></tr>         </table>     </div></div>`)[0];
+                popup_d3d2429c474815f9fdb21fc61fb010e7.setContent(html_1ed49ebb84d1fef81f09d286fac6a9d0);
+            
+        
+
+        circle_marker_1e4ce1ee898cc7cbd0333f7018b64cb9.bindPopup(popup_d3d2429c474815f9fdb21fc61fb010e7)
+        ;
+
+        
+    
+    
+            var marker_1bb170622b3c7edf44ff0bb3f0f82d97 = L.marker(
+                [15.957143658998444, 102.53965626695098],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_885b164aa9cff564509c97aa1c4f1558 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e41\u0e27\u0e07\u0e43\u0e2b\u0e0d\u0e48\u003cbr\u003e\u003cspan style=\"color:#f39c12;\"\u003e0.7\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_1bb170622b3c7edf44ff0bb3f0f82d97.setIcon(div_icon_885b164aa9cff564509c97aa1c4f1558);
+            
+    
+            var circle_marker_4dcf46cf017b85b082795ecc87f9b0de = L.circleMarker(
+                [16.799007605710575, 102.18350004714918],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.274122517866091, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_b08957a87bf2c24c999549cfcaa43620 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_47af72acbc5d4eefa032093a9f405b27 = $(`<div id="html_47af72acbc5d4eefa032093a9f405b27" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.สีชมพู</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">75,842 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">5 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f39c12;">0.66</td></tr>         </table>     </div></div>`)[0];
+                popup_b08957a87bf2c24c999549cfcaa43620.setContent(html_47af72acbc5d4eefa032093a9f405b27);
+            
+        
+
+        circle_marker_4dcf46cf017b85b082795ecc87f9b0de.bindPopup(popup_b08957a87bf2c24c999549cfcaa43620)
+        ;
+
+        
+    
+    
+            var marker_41de264eea3211efacaa04d235c32a4f = L.marker(
+                [16.799007605710575, 102.18350004714918],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_3fcf7d9995de6fd72f5907ef60815901 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e2a\u0e35\u0e0a\u0e21\u0e1e\u0e39\u003cbr\u003e\u003cspan style=\"color:#f39c12;\"\u003e0.7\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_41de264eea3211efacaa04d235c32a4f.setIcon(div_icon_3fcf7d9995de6fd72f5907ef60815901);
+            
+    
+            var circle_marker_831069d85325c5db0d6caf510a4e0bc6 = L.circleMarker(
+                [16.6538386451452, 102.37588530063259],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.526551051008572, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_9ed83f192ae6c540e288b74534b188b9 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_0fae91491e197d71c6680aee279dab1f = $(`<div id="html_0fae91491e197d71c6680aee279dab1f" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.ภูเวียง</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">70,694 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">4 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#f39c12;">0.57</td></tr>         </table>     </div></div>`)[0];
+                popup_9ed83f192ae6c540e288b74534b188b9.setContent(html_0fae91491e197d71c6680aee279dab1f);
+            
+        
+
+        circle_marker_831069d85325c5db0d6caf510a4e0bc6.bindPopup(popup_9ed83f192ae6c540e288b74534b188b9)
+        ;
+
+        
+    
+    
+            var marker_ca2cbc1f336c189ad6d3b2ea73b1d452 = L.marker(
+                [16.6538386451452, 102.37588530063259],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_ea7fe0585812f60bf7c676cf5e74ab64 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e20\u0e39\u0e40\u0e27\u0e35\u0e22\u0e07\u003cbr\u003e\u003cspan style=\"color:#f39c12;\"\u003e0.6\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_ca2cbc1f336c189ad6d3b2ea73b1d452.setIcon(div_icon_ea7fe0585812f60bf7c676cf5e74ab64);
+            
+    
+            var circle_marker_e36fbdd9fb17e7ae5591746316f58340 = L.circleMarker(
+                [15.805624417588529, 102.41407535927533],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.906345369760004, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_7c5e84631b7e7c9aa32cc59576355e1b = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_e70f19571b07e7fce55f19f89c858165 = $(`<div id="html_e70f19571b07e7fce55f19f89c858165" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.แวงน้อย</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">40,959 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">2 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#e74c3c;">0.49</td></tr>         </table>     </div></div>`)[0];
+                popup_7c5e84631b7e7c9aa32cc59576355e1b.setContent(html_e70f19571b07e7fce55f19f89c858165);
+            
+        
+
+        circle_marker_e36fbdd9fb17e7ae5591746316f58340.bindPopup(popup_7c5e84631b7e7c9aa32cc59576355e1b)
+        ;
+
+        
+    
+    
+            var marker_86c3e4464a2e45525aad38598133bb8e = L.marker(
+                [15.805624417588529, 102.41407535927533],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_5dd07d62182eb4e701ed6756c351a12d = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e41\u0e27\u0e07\u0e19\u0e49\u0e2d\u0e22\u003cbr\u003e\u003cspan style=\"color:#e74c3c;\"\u003e0.5\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_86c3e4464a2e45525aad38598133bb8e.setIcon(div_icon_5dd07d62182eb4e701ed6756c351a12d);
+            
+    
+            var circle_marker_36f4b28e6f9a537129148ed829898687 = L.circleMarker(
+                [16.64396321007227, 101.905092682238],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.5203520352035205, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_860034b18754ba5efa17dbde74333ec4 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_56f046753c1d429aafe72ef820bb80da = $(`<div id="html_56f046753c1d429aafe72ef820bb80da" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.ภูผาม่าน</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">22,725 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">1 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#e74c3c;">0.44</td></tr>         </table>     </div></div>`)[0];
+                popup_860034b18754ba5efa17dbde74333ec4.setContent(html_56f046753c1d429aafe72ef820bb80da);
+            
+        
+
+        circle_marker_36f4b28e6f9a537129148ed829898687.bindPopup(popup_860034b18754ba5efa17dbde74333ec4)
+        ;
+
+        
+    
+    
+            var marker_98e3d4374cad89d179b16721ab70ccb6 = L.marker(
+                [16.64396321007227, 101.905092682238],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_aa10d680ee5010c53a06887b3cd85e06 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e20\u0e39\u0e1c\u0e32\u0e21\u0e48\u0e32\u0e19\u003cbr\u003e\u003cspan style=\"color:#e74c3c;\"\u003e0.4\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_98e3d4374cad89d179b16721ab70ccb6.setIcon(div_icon_aa10d680ee5010c53a06887b3cd85e06);
+            
+    
+            var circle_marker_82c48565d70cfea0f8ff811ad22e5601 = L.circleMarker(
+                [16.451325399987027, 102.64000474627727],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2.9592365169786192, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_2104ef4061d0ea38f105d44f4cf52ce0 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_c7d8761fc5dfddc5b65c22857d0ae06b = $(`<div id="html_c7d8761fc5dfddc5b65c22857d0ae06b" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.บ้านฝาง</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">54,068 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">2 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#e74c3c;">0.37</td></tr>         </table>     </div></div>`)[0];
+                popup_2104ef4061d0ea38f105d44f4cf52ce0.setContent(html_c7d8761fc5dfddc5b65c22857d0ae06b);
+            
+        
+
+        circle_marker_82c48565d70cfea0f8ff811ad22e5601.bindPopup(popup_2104ef4061d0ea38f105d44f4cf52ce0)
+        ;
+
+        
+    
+    
+            var marker_71853094c6f0dc73c7a053a3c248bfbf = L.marker(
+                [16.451325399987027, 102.64000474627727],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_b186a066c22e8bea95890f72c8b8a9d8 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e1a\u0e49\u0e32\u0e19\u0e1d\u0e32\u0e07\u003cbr\u003e\u003cspan style=\"color:#e74c3c;\"\u003e0.4\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_71853094c6f0dc73c7a053a3c248bfbf.setIcon(div_icon_b186a066c22e8bea95890f72c8b8a9d8);
+            
+    
+            var circle_marker_351a7a62f39754ce0496ba917983e6d5 = L.circleMarker(
+                [16.196522153999325, 102.75853142370184],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2.4604785630805193, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_882e3c4810a3a0e9292410c7ad680501 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_f207428afed6c3187f23829330ea79d9 = $(`<div id="html_f207428afed6c3187f23829330ea79d9" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.บ้านแฮด</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">32,514 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">1 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#e74c3c;">0.31</td></tr>         </table>     </div></div>`)[0];
+                popup_882e3c4810a3a0e9292410c7ad680501.setContent(html_f207428afed6c3187f23829330ea79d9);
+            
+        
+
+        circle_marker_351a7a62f39754ce0496ba917983e6d5.bindPopup(popup_882e3c4810a3a0e9292410c7ad680501)
+        ;
+
+        
+    
+    
+            var marker_4df282179846f99d25b12b8dda53236d = L.marker(
+                [16.196522153999325, 102.75853142370184],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_5fb142756081d454384abb49c84555ce = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e1a\u0e49\u0e32\u0e19\u0e41\u0e2e\u0e14\u003cbr\u003e\u003cspan style=\"color:#e74c3c;\"\u003e0.3\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_4df282179846f99d25b12b8dda53236d.setIcon(div_icon_5fb142756081d454384abb49c84555ce);
+            
+    
+            var circle_marker_5efccc92f32a515c7cdadfd6ec704391 = L.circleMarker(
+                [16.65, 102.17],
+                {"bubblingMouseEvents": true, "color": "#2c3e50", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdc3c7", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1.5}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+        var popup_4bb8ae86db2b5ded6a58d5416ac6bef3 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_d86195419a68812ef68dd9304810b365 = $(`<div id="html_d86195419a68812ef68dd9304810b365" style="width: 100.0%; height: 100.0%;">     <div style="font-family:sans-serif; min-width:220px;">         <b style="font-size:14px; color:#2c3e50;">อ.เวียงเก่า</b><br>         <hr style="margin:4px 0;">         <table style="font-size:12px; width:100%;">             <tr><td>ประชากร:</td><td style="text-align:right; font-weight:bold;">19,622 คน</td></tr>             <tr><td>ร้านยา:</td><td style="text-align:right; font-weight:bold;">0 แห่ง</td></tr>             <tr><td>อัตราส่วน/10,000:</td><td style="text-align:right; font-weight:bold; color:#bdc3c7;">0.00</td></tr>         </table>     </div></div>`)[0];
+                popup_4bb8ae86db2b5ded6a58d5416ac6bef3.setContent(html_d86195419a68812ef68dd9304810b365);
+            
+        
+
+        circle_marker_5efccc92f32a515c7cdadfd6ec704391.bindPopup(popup_4bb8ae86db2b5ded6a58d5416ac6bef3)
+        ;
+
+        
+    
+    
+            var marker_fabe22812820911fed42e07366e0e122 = L.marker(
+                [16.65, 102.17],
+                {
+}
+            ).addTo(map_bc1e61669c454a8d6f8138db175b9377);
+        
+    
+            var div_icon_afcb2acaa67c42578d9cb7d98c4f7259 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"font-size:10px; font-weight:bold; color:#2c3e50; text-align:center; \n                        white-space:nowrap; text-shadow:1px 1px 2px white,-1px -1px 2px white;\"\u003e\n                \u0e40\u0e27\u0e35\u0e22\u0e07\u0e40\u0e01\u0e48\u0e32\u003cbr\u003e\u003cspan style=\"color:#bdc3c7;\"\u003e0.0\u003c/span\u003e\n            \u003c/div\u003e",
+  "iconSize": [80, 30],
+  "iconAnchor": [40, -5],
+  "className": "empty",
+});
+        
+    
+                marker_fabe22812820911fed42e07366e0e122.setIcon(div_icon_afcb2acaa67c42578d9cb7d98c4f7259);
+            
+</script>
+</html>
